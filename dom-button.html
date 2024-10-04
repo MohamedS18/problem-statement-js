@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .button{
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            border:none;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .flex{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <button onclick="rclick()" class="button red">Red</button>
+        <button onclick="bclick()" class="button blue">blue</button>
+        <button onclick="gclick()" class="button green">green</button>
+        <button style="color:black;" onclick="reset()" class="button ">reset</button>
+    </div>
+    <script >
+        function rclick(){
+            document.body.style.backgroundColor = "red";
+            document.querySelector(".red").style.backgroundColor = "white";
+            document.querySelector(".red").style.color = "black";
+            document.querySelector(".green").style.backgroundColor = "green";
+            document.querySelector(".green").style.color = "white";
+            document.querySelector(".blue").style.backgroundColor = "blue";
+            document.querySelector(".blue").style.color = "white";
+            
+        }
+        function gclick(){
+            document.body.style.backgroundColor = "green";
+
+            document.querySelector(".red").style.backgroundColor = "red";
+            document.querySelector(".red").style.color = "white";
+            document.querySelector(".green").style.backgroundColor = "white";
+            document.querySelector(".green").style.color = "black";
+            document.querySelector(".blue").style.backgroundColor = "blue";
+            document.querySelector(".blue").style.color = "white";
+            
+        }
+        function bclick(){
+            document.body.style.backgroundColor = "blue";
+            document.querySelector(".red").style.backgroundColor = "red";
+            document.querySelector(".red").style.color = "white";
+            document.querySelector(".green").style.backgroundColor = "green";
+            document.querySelector(".green").style.color = "white";
+            document.querySelector(".blue").style.backgroundColor = "white";
+            document.querySelector(".blue").style.color = "blue";
+            
+        }
+        function reset(){
+            document.body.style.backgroundColor = "white";
+        }
+    </script>
+</body>
+</html>

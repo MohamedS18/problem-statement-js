@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice Cream Shop Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .input-row {
+            margin-bottom: 15px;
+        }
+        .input-row label {
+            display: inline-block;
+            width: 100px;
+        }
+        .input-row input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ice Cream Shop Inventory</h1>
+
+<div class="input-row">
+    <label for="flavor">Flavor:</label>
+    <input type="text" id="flavor" placeholder="Enter flavor" required>
+</div>
+<div class="input-row">
+    <label for="price">Price:</label>
+    <input type="number" id="price" placeholder="Enter price" required>
+</div>
+<div class="input-row">
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" placeholder="Enter quantity" required>
+</div>
+<button onclick="addIceCream()">Add Ice Cream</button>
+<button onclick="updateFlavor()">Update Flavor</button>
+<button onclick="calculateTotalValue()">Calculate Total Value</button>
+
+<h2>Inventory</h2>
+<table id="inventoryTable">
+    <thead>
+        <tr>
+            <th>Flavor</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Inventory will be displayed here -->
+    </tbody>
+</table>
+
+<h3>Total Inventory Value: $<span id="totalValue">0.00</span></h3>
+
+<script>
+    let inventory = [];
+
+    function addIceCream() {
+        const flavor = document.getElementById('flavor').value;
+        const price = parseFloat(document.getElementById('price').value);
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        if (flavor && !isNaN(price) && !isNaN(quantity)) {
+            const iceCream = { flavor, price, quantity };
+            inventory.push(iceCream);
+            renderInventory();
+            clearFields();
+        } else {
+            alert('Please fill all fields with valid data.');
+        }
+    }
+
+    function updateFlavor() {
+        const flavor = document.getElementById('flavor').value;
+        const price = parseFloat(document.getElementById('price').value);
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        if (flavor && !isNaN(price) && !isNaN(quantity)) {
+            const iceCreamIndex = inventory.findIndex(item => item.flavor === flavor);
+            if (iceCreamIndex !== -1) {
+                inventory[iceCreamIndex].price = price;
+                inventory[iceCreamIndex].quantity = quantity;
+                renderInventory();
+                clearFields();
+            } else {
+                alert('Flavor not found in inventory.');
+            }
+        } else {
+            alert('Please fill all fields with valid data.');
+        }
+    }
+
+    function calculateTotalValue() {
+        let totalValue = 0;
+        inventory.forEach(item => {
+            totalValue += item.price * item.quantity;
+        });
+        document.getElementById('totalValue').innerText = totalValue.toFixed(2);
+    }
+
+    function renderInventory() {
+        const tbody = document.querySelector('#inventoryTable tbody');
+        tbody.innerHTML = '';
+        inventory.forEach(item => {
+            const totalValue = item.price * item.quantity;
+            const row = `<tr>
+                <td>${item.flavor}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>$${totalValue.toFixed(2)}</td>
+            </tr>`;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function clearFields() {
+        document.getElementById('flavor').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('quantity').value = '';
+    }
+</script>
+
+</body>
+</html>
